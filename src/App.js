@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import GlobalStyles from "./components/styled/GlobalStyles"
+import { ThemeProvider } from "styled-components"
+import theme from "./components/styled/Theme"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import Home from "./pages/home/Home.component"
+import { getFirestore, collection, getDocs, doc } from "./firebase"
+
+const db = getFirestore()
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<Router>
+			<ThemeProvider theme={theme}>
+				<GlobalStyles />
+				<Routes>
+					<Route path="/" element={<Home />} />
+				</Routes>
+			</ThemeProvider>
+		</Router>
+	)
 }
 
-export default App;
+export default App
+
+// git remote add origin https://github.com/biljeg/devjobs.git
+// git branch -M main
+// git push -u origin main
