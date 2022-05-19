@@ -49,6 +49,13 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 
 ## My process
 
+New things I learned and which I need to continue learning:
+-firebase firestore/storage/auth/cloud functions
+-algolia
+-react-hook-form
+-git (deploying when finished 1 thing)
+-React router architecture and advanced features
+
 ### Built with
 
 - Semantic HTML5 markup
@@ -71,14 +78,16 @@ To see how you can add code snippets, see below:
 ```html
 <h1>Some HTML code I'm proud of</h1>
 ```
+
 ```css
 .proud-of-this-css {
-  color: papayawhip;
+	color: papayawhip;
 }
 ```
+
 ```js
 const proudOfThisFunc = () => {
-  console.log('🎉')
+	console.log("🎉")
 }
 ```
 

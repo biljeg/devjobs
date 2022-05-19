@@ -1,6 +1,27 @@
 import { initializeApp } from "firebase/app"
-
-import { getFirestore, collection, getDoc, doc } from "firebase/firestore/lite"
+import {
+	getFirestore,
+	collection,
+	getDocs,
+	addDoc,
+	getDoc,
+	doc,
+	query,
+	orderBy,
+	limit,
+	where,
+	startAfter,
+} from "firebase/firestore/lite"
+import { getStorage, ref, uploadBytes } from "firebase/storage"
+import {
+	getAuth,
+	createUserWithEmailAndPassword,
+	signInWithEmailAndPassword,
+	signOut,
+	GoogleAuthProvider,
+	signInWithPopup,
+	onAuthStateChanged,
+} from "firebase/auth"
 
 const firebaseConfig = {
 	apiKey: "AIzaSyCk7uR1BWa_IfM272HxNwi4Qb0_dTFuk_4",
@@ -13,4 +34,26 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig)
 
-export { getFirestore, collection, getDoc, doc }
+export {
+	getFirestore,
+	collection,
+	getDocs,
+	getDoc,
+	addDoc,
+	doc,
+	query,
+	orderBy,
+	limit,
+	where,
+	startAfter,
+}
+export { getStorage, ref, uploadBytes }
+export {
+	getAuth,
+	createUserWithEmailAndPassword,
+	signInWithEmailAndPassword,
+	signOut,
+	GoogleAuthProvider,
+	signInWithPopup,
+	onAuthStateChanged,
+}
