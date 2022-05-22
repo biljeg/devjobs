@@ -1,3 +1,6 @@
+@use "../styles" as *;
+
+// OVERLAY AND CONTAINER
 .overlay {
 	position: absolute;
 	top: 0;
@@ -8,22 +11,120 @@
 	background-color: rgba(0, 0, 0, 0.5);
 }
 .login-container {
+	display: flex;
+	flex-direction: column;
+	width: 350px;
+	height: 450px;
 	position: fixed;
 	top: 50%;
 	left: 50%;
+	font-family: "Roboto", sans-serif;
 	transform: translate(-50%, -50%);
-	width: 300px;
-	height: 400px;
-	background-color: #fff;
-	padding: 10px;
+	background-color: $white;
+	padding: 25px;
+	border-radius: 20px;
 	z-index: 3;
+}
+.login-container-dark {
+	background-color: $midnight;
+}
+
+// LOGO AND CLOSE BUTTON
+.logo-container {
+	margin-bottom: 1.5rem;
+}
+.close-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	top: 20px;
+	right: 20px;
+	background-color: $light-gray;
+	cursor: pointer;
+	img {
+		width: 10px;
+		height: 10px;
+	}
+}
+.close-btn-dark {
+	background-color: $very-dark-gray;
+}
+
+//LOGIN CONTENTS
+.login-heading {
+	color: $blackish-gray;
+	font-size: 24px;
+	margin-bottom: 1.5rem;
+}
+.login-heading-dark {
+	color: $light-gray;
+}
+
+.login-signup-switch {
+	p {
+		color: $dark-beige-gray;
+	}
+	span {
+		font-weight: 500;
+		color: $purple;
+		margin-left: 4px;
+	}
+}
+.google-login {
+	display: flex;
+	justify-content: center;
+	padding: 10px 0;
+	margin-block: 24px;
+	border: 1px solid $bright-blue;
+	border-radius: 10px;
+	background-color: $cloud-gray;
+	cursor: pointer;
+	span {
+		color: $bright-blue;
+	}
+	div {
+		display: flex;
+		align-items: center;
+	}
+	img {
+		width: 25px;
+		height: 25px;
+		margin-right: 10px;
+	}
+}
+
+.login-sign-up-form {
 	display: flex;
 	flex-direction: column;
 }
-
-.close-btn {
-	position: absolute;
-	top: 5px;
-	right: 10px;
-	cursor: pointer;
+.login-wrapper {
+	display: flex;
+	flex-direction: column;
+}
+.login-label {
+	color: $dark-beige-gray;
+	font-size: 12px;
+	letter-spacing: 1px;
+	font-weight: 500;
+	text-transform: uppercase;
+	margin-bottom: 5px;
+}
+.login-input-container {
+	display: flex;
+	padding: 10px 16px;
+	margin-bottom: 10px;
+	background-color: $cloud-gray;
+	border-radius: 4px;
+	img {
+		width: 20px;
+	}
+}
+.login-input {
+	border: none;
+	appearance: none;
+	background-color: $cloud-gray;
 }

@@ -1,5 +1,5 @@
 import { createPortal } from "react-dom"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import "./Login.scss"
 import { useForm } from "react-hook-form"
 import {
@@ -9,12 +9,21 @@ import {
 	signInWithEmailAndPassword,
 	createUserWithEmailAndPassword,
 } from "../../firebase"
+import closeIconLight from "../../assets/login/icon-close-light.svg"
+import closeIconDark from "../../assets/login/icon-close-dark.svg"
+import googleIcon from "../../assets/login/icon-google.svg"
+import emailIcon from "../../assets/login/icon-email.svg"
+import lockIcon from "../../assets/login/icon-lock.svg"
+import loginLogo from "../../assets/login/login-logo.svg"
+import { ButtonLogin } from "../utils/Utils.component"
+import { ThemeContext } from "../../App"
 
 const auth = getAuth()
 const googleProvider = new GoogleAuthProvider()
 
 const Login = ({ isOpened, onClose }) => {
 	const [isSignUp, setIsSignUp] = useState(false)
+	const { isDarkMode } = useContext(ThemeContext)
 	const {
 		register: loginRegister,
 		handleSubmit: handleLogin,
@@ -55,46 +64,118 @@ const Login = ({ isOpened, onClose }) => {
 	return createPortal(
 		<>
 			<div className="overlay"></div>
-			<div className="login-container">
-				<span className="close-btn" onClick={onClose}>
-					x
-				</span>
-				<h3>{isSignUp ? "Sign up" : "Log in"} with email and password</h3>
+			<div
+				className={`login-container ${
+					isDarkMode ? "login-container-dark" : ""
+				}`}
+			>
+				<div
+					className={`close-btn ${isDarkMode ? "close-btn-dark" : ""}`}
+					onClick={onClose}
+				>
+					{isDarkMode ? (
+						<img alt="close button" src={closeIconDark} />
+					) : (
+						<img alt="close button" src={closeIconLight} />
+					)}
+				</div>
+				<div className="logo-container">
+					<img src={loginLogo} alt="devjobs logo" />
+				</div>
+				<h3
+					className={`login-heading ${isDarkMode ? "login-heading-dark" : ""}`}
+				>
+					{isSignUp ? "Sign up" : "Login"}
+				</h3>
 				{isSignUp ? (
-					<form onSubmit={handleSignUp(signUp)} className="sign-up">
-						<label htmlFor="email-sign-up">Email</label>
-						<input id="email-sign-up" {...signUpRegister("emailSignUp")} />
-						<label htmlFor="password-sign-up">Password</label>
-						<input
-							id="password-sign-up"
-							{...signUpRegister("passwordSignUp")}
-						/>
-						<button type="submit">Sign up</button>
+					<form
+						onSubmit={handleSignUp(signUp)}
+						className="login-sign-up-form"
+						id="sign-up-form"
+					>
+						<div className="login-wrapper">
+							<label className="login-label" htmlFor="email-sign-up">
+								Email
+							</label>
+							<div className="login-input-container">
+								<img alt="" aria-hidden="true" src={emailIcon} />
+								<input
+									className="login-input"
+									id="email-sign-up"
+									{...signUpRegister("emailSignUp")}
+								/>
+							</div>
+						</div>
+						<div className="login-wrapper">
+							<label className="login-label" htmlFor="password-sign-up">
+								Password
+							</label>
+							<div className="login-input-container">
+								<img alt="" aria-hidden="true" src={lockIcon} />
+								<input
+									className="login-input"
+									id="password-sign-up"
+									{...signUpRegister("passwordSignUp")}
+								/>
+							</div>
+						</div>
+						<ButtonLogin type="submit">Sign Up</ButtonLogin>
 					</form>
 				) : (
-					<form onSubmit={handleLogin(login)} className="login">
-						<label htmlFor="email-login">Email</label>
-						<input id="email-login" {...loginRegister("emailLogin")} />
-						<label htmlFor="password-login">Password</label>
-						<input id="password-login" {...loginRegister("passwordLogin")} />
-						<button type="submit">Log in</button>
+					<form
+						onSubmit={handleLogin(login)}
+						className="login-sign-up-form"
+						id="login-form"
+					>
+						<div className="login-wrapper">
+							<label className="login-label" htmlFor="email-login">
+								Email
+							</label>
+							<div className="login-input-container">
+								<img alt="" aria-hidden="true" src={emailIcon} />
+								<input
+									className="login-input"
+									id="email-login"
+									{...loginRegister("emailLogin")}
+								/>
+							</div>
+						</div>
+						<div className="login-wrapper">
+							<label className="login-label" htmlFor="password-login">
+								Password
+							</label>
+							<div className="login-input-container">
+								<img alt="" aria-hidden="true" src={lockIcon} />
+								<input
+									className="login-input"
+									id="password-login"
+									{...loginRegister("passwordLogin")}
+								/>
+							</div>
+						</div>
+						<ButtonLogin type="submit">Login</ButtonLogin>
 					</form>
 				)}
-				<h3>Or proceed with google instead</h3>
 				<div className="google-login" onClick={googleLogin}>
-					Google
+					<div>
+						<img alt="" src={googleIcon} />
+						<span>Sign up with google</span>
+					</div>
 				</div>
-				<hr />
 				{isSignUp ? (
-					<p>
-						Already have an account?
-						<span onClick={() => setIsSignUp(false)}>Log in instead</span>
-					</p>
+					<div className="login-signup-switch">
+						<p>
+							Already have an account?
+							<span onClick={() => setIsSignUp(false)}>Login instead</span>
+						</p>
+					</div>
 				) : (
-					<p>
-						Don't have an account?
-						<span onClick={() => setIsSignUp(true)}>Sign up instead</span>
-					</p>
+					<div className="login-signup-switch">
+						<p>
+							Don't have an account?
+							<span onClick={() => setIsSignUp(true)}>Sign up instead</span>
+						</p>
+					</div>
 				)}
 			</div>
 		</>,

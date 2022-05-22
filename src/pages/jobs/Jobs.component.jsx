@@ -6,6 +6,8 @@ import {
 	orderBy,
 	limit,
 	startAfter,
+	getAuth,
+	signOut,
 } from "../../firebase"
 import { useState, useEffect } from "react"
 import Job from "../../components/job/Job.component"
@@ -16,7 +18,7 @@ const client = algoliasearch("CCM9KCDWSJ", "1ab20807be16f802de6c0745cd9a3612")
 const index = client.initIndex("jobs")
 const db = getFirestore()
 const jobsRef = collection(db, "jobs")
-
+const auth = getAuth()
 const Jobs = () => {
 	const [state, setState] = useState({ data: [], loading: true })
 	const [lastVisible, setLastVisible] = useState()
@@ -89,6 +91,9 @@ const Jobs = () => {
 		} catch (err) {
 			console.error(err)
 		}
+	}
+	const signOutBtn = async () => {
+		await signOut(auth)
 	}
 
 	useEffect(() => {
@@ -166,6 +171,7 @@ const Jobs = () => {
 						>
 							Load More
 						</button>
+						<button onClick={signOutBtn}>Sign out</button>
 					</div>
 				)}
 			</main>

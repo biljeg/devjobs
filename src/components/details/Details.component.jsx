@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { useParams } from "react-router-dom"
 import { getFirestore, doc, getDoc } from "../../firebase"
+import { Button2 } from "../utils/Utils.component"
+import { ThemeContext } from "../../App"
 import "./Details.scss"
 
 const db = getFirestore()
@@ -8,6 +10,7 @@ const Details = () => {
 	const [state, setState] = useState({ data: null, loading: true })
 	const { id } = useParams()
 	const docRef = doc(db, "jobs", id)
+	const { isDarkMode } = useContext(ThemeContext)
 
 	useEffect(() => {
 		const fetch = async () => {
@@ -32,7 +35,7 @@ const Details = () => {
 					<h4>{state.data.company}</h4>
 					<a>{state.data.website}</a>
 					<span>{state.data.location}</span>
-					<button>Company Site</button>
+					<Button2 theme={isDarkMode ? "dark" : "light"}>Company Site</Button2>
 				</div>
 				<div>
 					<div>

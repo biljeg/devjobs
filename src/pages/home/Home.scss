@@ -1,0 +1,13 @@
+@use "../../components/styles" as *;
+
+.home {
+}
+
+.home-heading,
+.home-text {
+	color: $blackish-gray;
+}
+.home-heading-dark,
+.home-text-dark {
+	color: $light-gray;
+}

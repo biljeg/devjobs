@@ -1,5 +1,5 @@
 import "./Job.scss"
-import { getAuth, onAuthStateChanged } from "../../firebase"
+import { getAuth, onAuthStateChanged, signOut } from "../../firebase"
 import { useNavigate } from "react-router-dom"
 import Login from "../login/Login.component"
 import { useEffect, useState } from "react"
