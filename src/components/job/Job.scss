@@ -1,11 +1,62 @@
+@use "../styles" as *;
+
 .job-wrapper {
-	padding: 50px;
+	padding: 32px;
+	background-color: $white;
+	border-radius: 6px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.job-wrapper-dark {
+	background-color: $very-dark-blue;
 }
 
 .job-logo {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	position: absolute;
+	top: 0px;
+	transform: translateY(-25px);
 	width: 50px;
 	height: 50px;
+	border-radius: 15px;
+}
+
+.job-header {
+	cursor: pointer;
+	&:hover {
+		color: $dark-gray;
+		transition: color 0.2s;
+	}
+}
+
+.job-info-wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin-top: 0.75rem;
+}
+
+.dark-gray-text {
+	color: $dark-gray;
+}
+.decoration-dot {
+	margin-inline: 5px;
+	font-weight: 700;
+	color: $dark-gray;
+}
+.heading-text {
+	color: $blackish-gray;
+}
+.heading-text-dark {
+	color: $white;
+}
+.violet-text-jobs {
+	color: $violet;
+	font-weight: 700;
+	font-size: 14px;
+	margin-top: 42px;
 }

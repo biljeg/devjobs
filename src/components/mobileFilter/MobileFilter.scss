@@ -1,0 +1,50 @@
+@use "../../components/styles" as *;
+
+.overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 2;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+.filter-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 320px;
+	height: 220px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	font-family: "Roboto", sans-serif;
+	transform: translate(-50%, -50%);
+	background-color: $white;
+	padding: 24px;
+	border-radius: 6px;
+	z-index: 3;
+}
+.filter-card-dark {
+	background-color: $very-dark-blue;
+}
+.form-group-mobile {
+	padding: 18px 18px 18px 24px;
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid rgb(226, 230, 234);
+	img {
+		margin-right: 12px;
+	}
+	input {
+		all: unset;
+		width: 140px;
+		color: rgb(140, 143, 150);
+	}
+}
+.form-group-mobile-dark {
+	border-bottom: 1px solid rgb(42, 51, 66);
+	input {
+		color: $white;
+	}
+}

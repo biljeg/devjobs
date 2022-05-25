@@ -7,7 +7,14 @@ import "./Header.scss"
 const Header = ({ handleSwitch, darkMode }) => {
 	const location = useLocation()
 	return (
-		<header className={location.pathname === "/jobs" ? "header-jobs-page" : ""}>
+		<header
+			className={`${
+				location.pathname.split("/")[1] === "jobs" &&
+				location.pathname.split("/")[2] !== ""
+					? "header-jobs-page"
+					: ""
+			} ${location.pathname === "/jobs" ? "header-jobs-page" : ""}`}
+		>
 			<nav>
 				<Link to="/">
 					<img src={devjobsLogo} />
@@ -35,10 +42,5 @@ const Header = ({ handleSwitch, darkMode }) => {
 		</header>
 	)
 }
-// const handleCheck = () => {
-// 	setFullTime(!fullTime)
-// }
-// checked={fullTime ? "checked" : ""}
-// onChange={handleCheck}
 
 export default Header

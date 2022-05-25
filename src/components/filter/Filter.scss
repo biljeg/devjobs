@@ -1,0 +1,152 @@
+@use "../../components/styles" as *;
+
+.jobs-filter-wrapper {
+	width: 87%;
+	border-radius: 6px;
+	background-color: $white;
+	transform: translateY(-40px);
+	margin-bottom: 15px;
+	height: 80px;
+}
+.form-container {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	align-items: center;
+}
+
+.form-group {
+	padding: 15px;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	border-right: 1px solid rgb(226, 230, 234);
+
+	input {
+		all: unset;
+		width: 140px;
+		color: rgb(140, 143, 150);
+	}
+}
+.form-group:nth-of-type(3) {
+	border-right: none;
+}
+
+.jobs-filter-wrapper-dark {
+	background-color: $very-dark-blue;
+	.form-group {
+		border-right: 1px solid rgb(42, 51, 66);
+		input {
+			color: $white;
+		}
+	}
+	.form-group:nth-of-type(3) {
+		border-right: none;
+	}
+}
+
+.visually-hidden {
+	border-width: 0 !important;
+	clip: rect(1px, 1px, 1px, 1px) !important;
+	height: 1px !important;
+	overflow: hidden !important;
+	padding: 0 !important;
+	position: absolute !important;
+	white-space: nowrap !important;
+	width: 1px !important;
+}
+
+.form-buttons {
+	display: flex;
+	gap: 5px;
+	.form-btn {
+		border: none;
+		font-weight: 700;
+		color: $white;
+		border-radius: 6px;
+		background-color: $violet;
+	}
+}
+.filter-icon {
+	border: none;
+	background-color: transparent;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	img {
+		width: 20px;
+		height: 20px;
+	}
+}
+
+.custom-checkbox-container {
+	display: flex;
+	align-items: center;
+	color: $very-dark-blue;
+	font-weight: 700;
+	.custom-checkbox {
+		width: 24px;
+		height: 24px;
+		background-color: $very-dark-blue;
+		border-radius: 3px;
+		opacity: 0.1;
+		margin-right: 12px;
+	}
+	.custom-checkbox-checked {
+		background-color: $violet;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		opacity: 1;
+	}
+	&:hover {
+		.custom-checkbox {
+			background-color: $violet;
+			opacity: 0.25;
+		}
+	}
+}
+.custom-checkbox-container-dark {
+	color: $white;
+	.custom-checkbox {
+		background-color: $white;
+		opacity: 0.1;
+	}
+	.custom-checkbox-checked {
+		background-color: $violet;
+		opacity: 1;
+		display: flex;
+		align-items: center;
+	}
+	&:hover {
+		.custom-checkbox {
+			background-color: $white;
+			opacity: 0.25;
+		}
+	}
+}
+
+@media (max-width: $desktop) {
+	.full-time-only {
+		display: none;
+	}
+}
+@media (min-width: $tablet) {
+	.form-group {
+		padding: 18px 18px 18px 24px;
+
+		img {
+			margin-right: 12px;
+		}
+	}
+	.jobs-filter-wrapper {
+		width: 90%;
+		margin-bottom: 30px;
+	}
+}
+@media (min-width: $desktop) {
+	.jobs-filter-wrapper {
+		width: min(90%, 1120px);
+		margin-bottom: 60px;
+	}
+}

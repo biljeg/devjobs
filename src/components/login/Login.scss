@@ -13,8 +13,9 @@
 .login-container {
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
 	width: 350px;
-	height: 450px;
+	height: 500px;
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -78,7 +79,7 @@
 	display: flex;
 	justify-content: center;
 	padding: 10px 0;
-	margin-block: 24px;
+	margin-block: 16px;
 	border: 1px solid $bright-blue;
 	border-radius: 10px;
 	background-color: $cloud-gray;
@@ -127,4 +128,10 @@
 	border: none;
 	appearance: none;
 	background-color: $cloud-gray;
+}
+
+.error-message {
+	margin-top: -4px;
+	font-size: 12px;
+	color: $red;
 }

@@ -8,10 +8,8 @@ const Home = () => {
 	const { isDarkMode } = useContext(ThemeContext)
 	return (
 		<main className="home">
-			<h1 className={`home-heading ${isDarkMode ? "home-heading-dark" : ""}`}>
-				Devjobs
-			</h1>
-			<p className={`home-text ${isDarkMode ? "home-text-dark" : ""}`}>
+			<h1 className={isDarkMode ? "text-dark" : "text"}>Devjobs</h1>
+			<p className={isDarkMode ? "text-dark" : "text"}>
 				Find your perfect career in no time
 			</p>
 			<Link to="/jobs">

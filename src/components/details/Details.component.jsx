@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react"
 import { useParams } from "react-router-dom"
 import { getFirestore, doc, getDoc } from "../../firebase"
-import { Button2 } from "../utils/Utils.component"
+import { Button1, Button2 } from "../utils/Utils.component"
 import { ThemeContext } from "../../App"
 import "./Details.scss"
 
@@ -23,56 +23,115 @@ const Details = () => {
 			}
 		}
 		fetch()
-	}, [docRef])
+	}, [])
 
 	return (
 		!state.loading && (
-			<>
-				<div>
-					<div>
+			<section className="details-container">
+				<div
+					className={`company-card ${isDarkMode ? "company-card-dark" : ""}`}
+				>
+					<div
+						className="company-card-logo"
+						style={{ backgroundColor: state.data.logoBackground }}
+					>
 						<img src={state.data.logo.url} alt={state.data.logo.name} />
 					</div>
-					<h4>{state.data.company}</h4>
-					<a>{state.data.website}</a>
-					<span>{state.data.location}</span>
+					<div className="company-card-info">
+						<h3 className={isDarkMode ? "heading-text-dark" : "heading-text"}>
+							{state.data.company}
+						</h3>
+						<a className="dark-gray-text">{`${
+							state.data.website.split("/")[3]
+						}.com`}</a>
+					</div>
 					<Button2 theme={isDarkMode ? "dark" : "light"}>Company Site</Button2>
 				</div>
-				<div>
-					<div>
-						<span>{state.data.postedAt}</span>
-						<span>{state.data.contract}</span>
-						<h2>{state.data.position}</h2>
-						<span>{state.data.location}</span>
-						<button>Apply Now</button>
+				<div
+					className={`details-card ${isDarkMode ? "details-card-dark" : ""}`}
+				>
+					<div className="details-card-header-wrapper">
+						<div className="details-card-header">
+							<div>
+								<span className="dark-gray-text">{state.data.postedAt} </span>
+								<span className="decoration-dot">•</span>
+								<span className="dark-gray-text"> {state.data.contract}</span>
+							</div>
+							<h2 className={isDarkMode ? "heading-text-dark" : "heading-text"}>
+								{state.data.position}
+							</h2>
+							<span className="violet-text details-location">
+								{state.data.location}
+							</span>
+						</div>
+						<Button1>Apply Now</Button1>
 					</div>
-					<div>
-						<p>{state.data.description}</p>
+					<div className="details-card-description">
+						<p className={isDarkMode ? "gray-text" : "dark-gray-text"}>
+							{state.data.description}
+						</p>
 					</div>
-					<div>
-						<h3>Requirements</h3>
-						<p>{state.data.requirements.content}</p>
+					<div className="details-card-requirements">
+						<h3 className={isDarkMode ? "heading-text-dark" : "heading-text"}>
+							Requirements
+						</h3>
+						<p className={isDarkMode ? "gray-text" : "dark-gray-text"}>
+							{state.data.requirements.content}
+						</p>
 						<ul>
 							{state.data.requirements.items.map((item, idx) => (
-								<li key={idx}>{item}</li>
+								<li
+									className={isDarkMode ? "gray-text" : "dark-gray-text"}
+									key={idx}
+								>
+									<div className="violet-text">•</div>
+									<div>{item}</div>
+								</li>
 							))}
 						</ul>
 					</div>
-					<div>
-						<h3>What You Will Do</h3>
-						<p>{state.data.role.content}</p>
+					<div className="details-card-roles">
+						<h3 className={isDarkMode ? "heading-text-dark" : "heading-text"}>
+							What You Will Do
+						</h3>
+						<p className={isDarkMode ? "gray-text" : "dark-gray-text"}>
+							{state.data.role.content}
+						</p>
 						<ol>
 							{state.data.role.items.map((item, idx) => (
-								<li key={idx}>{item}</li>
+								<li
+									className={isDarkMode ? "gray-text" : "dark-gray-text"}
+									key={idx}
+								>
+									<div className="violet-text">{idx + 1}</div>
+									<div>{item}</div>
+								</li>
 							))}
 						</ol>
 					</div>
 				</div>
-				<footer>
-					<h2>{state.data.position}</h2>
-
-					<a>{state.data.website}</a>
+				<footer
+					className={`footer-container ${
+						isDarkMode ? "footer-container-dark" : ""
+					}`}
+				>
+					<div className="details-footer">
+						<div>
+							<h2
+								className={`details-footer-item ${
+									isDarkMode ? "heading-text-dark" : "heading-text"
+								}`}
+							>
+								{state.data.position}
+							</h2>
+							<a className="details-footer-item dark-gray-text">
+								{state.data.company}
+							</a>
+						</div>
+						<Button1>Apply Now</Button1>
+					</div>
 				</footer>
-			</>
+			</section>
 		)
 	)
 }

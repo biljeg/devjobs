@@ -10,8 +10,10 @@ import {
 	signOut,
 } from "../../firebase"
 import { useState, useEffect } from "react"
-import Job from "../../components/job/Job.component"
 import algoliasearch from "algoliasearch/lite"
+import Job from "../../components/job/Job.component"
+import Filter from "../../components/filter/Filter.component"
+import { Button1, Button2 } from "../../components/utils/Utils.component"
 import "./Jobs.scss"
 
 const client = algoliasearch("CCM9KCDWSJ", "1ab20807be16f802de6c0745cd9a3612")
@@ -19,55 +21,68 @@ const index = client.initIndex("jobs")
 const db = getFirestore()
 const jobsRef = collection(db, "jobs")
 const auth = getAuth()
+
 const Jobs = () => {
 	const [state, setState] = useState({ data: [], loading: true })
 	const [lastVisible, setLastVisible] = useState()
-	const [fullTime, setFullTime] = useState(false)
-	const [searchQ, setSearchQ] = useState("")
-	const [locationQ, setLocationQ] = useState("")
 	const [shouldReset, setShouldReset] = useState(false)
 	const [loadMoreShowing, setLoadMoreShowing] = useState(true)
+	const [desktopFilter, setDesktopFilter] = useState(
+		window.matchMedia("(min-width: 600px)").matches
+	)
 
-	const handleCheck = () => {
-		setFullTime(!fullTime)
-	}
-
-	const handleInput = (e, type) => {
-		if (type === "search") {
-			setSearchQ(e.target.value)
+	const onSubmit = async formData => {
+		let location
+		let fullTime
+		if (desktopFilter) {
+			if (
+				!formData.fullTimeDesktop &&
+				formData.locationDesktop === "" &&
+				formData.search === ""
+			) {
+				return
+			} else {
+				location = formData.locationDesktop
+				fullTime = formData.fullTimeDesktop
+			}
 		} else {
-			setLocationQ(e.target.value)
+			if (
+				!formData.fullTimeMobile &&
+				formData.locationMobile === "" &&
+				formData.search === ""
+			) {
+				return
+			} else {
+				location = formData.locationMobile
+				fullTime = formData.fullTimeMobile
+			}
 		}
-	}
-
-	const reset = () => {
-		setShouldReset(!shouldReset)
-		setFullTime(false)
-		setLocationQ("")
-		setSearchQ("")
-	}
-
-	const handleSubmit = async e => {
-		e.preventDefault()
-		if (!fullTime && locationQ === "" && searchQ === "") return
 		const filters = []
 		if (fullTime) {
 			filters.push("contract:Full Time")
 		}
-		if (locationQ !== "") {
-			filters.push(`location:${locationQ}`)
+		if (location !== "") {
+			filters.push(`location:${location}`)
 		}
-		const querryRes = await index.search(searchQ, {
+		const queryRes = await index.search(formData.search, {
 			facetFilters: filters,
 		})
-		if (!querryRes.hits[11]) setLoadMoreShowing(false)
+		if (!queryRes.hits[11]) setLoadMoreShowing(false)
 		const data = []
-		querryRes.hits.forEach((hit, idx) => {
+		queryRes.hits.forEach((hit, idx) => {
 			if (idx >= 12) return
 			data.push(hit)
 		})
 		setState({ data: data, loading: false })
 	}
+
+	const resetForm = reset => {
+		setShouldReset(!shouldReset)
+		reset("fullTime")
+		reset("search")
+		reset("location")
+	}
+
 	const loadMore = async () => {
 		const queryRef = query(
 			jobsRef,
@@ -92,6 +107,7 @@ const Jobs = () => {
 			console.error(err)
 		}
 	}
+
 	const signOutBtn = async () => {
 		await signOut(auth)
 	}
@@ -113,6 +129,11 @@ const Jobs = () => {
 		}
 		fetch()
 	}, [shouldReset])
+	useEffect(() => {
+		window
+			.matchMedia("(min-width: 600px)")
+			.addEventListener("change", e => setDesktopFilter(e.matches))
+	}, [])
 
 	return (
 		<>
@@ -120,59 +141,23 @@ const Jobs = () => {
 				{state.loading ? (
 					<div>loading</div>
 				) : (
-					<div>
-						<div>
-							<form onSubmit={handleSubmit}>
-								<label htmlFor="search">
-									<img />
-									<input
-										id="search"
-										type="text"
-										value={searchQ}
-										onChange={e => handleInput(e, "search")}
-									/>
-								</label>
-								<label htmlFor="location">
-									<img />
-									<input
-										id="location"
-										type="text"
-										value={locationQ}
-										onChange={e => handleInput(e, "location")}
-									/>
-								</label>
-								<div>
-									<label htmlFor="check">
-										<input
-											checked={fullTime ? "checked" : ""}
-											onChange={handleCheck}
-											id="check"
-											type="checkbox"
-										/>
-										Full Time Only
-									</label>
-								</div>
-								<button type="submit">Search</button>
-								<button type="button" onClick={reset}>
-									Reset
-								</button>
-							</form>
-						</div>
-						<div>
+					<section className="jobs-section">
+						<Filter resetForm={resetForm} onSubmit={onSubmit} />
+						<div className="jobs-grid">
 							{state.data.map(job => (
 								<Job key={job.id} {...job} />
 							))}
 						</div>
-						<button
+						<Button1
 							onClick={loadMore}
 							style={
 								loadMoreShowing ? { display: "inline" } : { display: "none" }
 							}
 						>
 							Load More
-						</button>
-						<button onClick={signOutBtn}>Sign out</button>
-					</div>
+						</Button1>
+						<Button2 onClick={signOutBtn}>Sign out</Button2>
+					</section>
 				)}
 			</main>
 		</>

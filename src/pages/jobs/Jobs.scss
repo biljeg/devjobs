@@ -1,0 +1,50 @@
+@use "../../components/styles" as *;
+
+.jobs-section {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.jobs-grid {
+	width: 87%;
+	display: grid;
+	row-gap: 50px;
+	grid-template-columns: repeat(auto-fill, 330px);
+	column-gap: 10px;
+	justify-content: center;
+	margin-bottom: 32px;
+}
+
+.visually-hidden {
+	border-width: 0 !important;
+	clip: rect(1px, 1px, 1px, 1px) !important;
+	height: 1px !important;
+	overflow: hidden !important;
+	padding: 0 !important;
+	position: absolute !important;
+	white-space: nowrap !important;
+	width: 1px !important;
+}
+
+@media (min-width: $tablet) {
+	.jobs-filter-wrapper {
+		width: 90%;
+		margin-bottom: 30px;
+	}
+	.jobs-grid {
+		width: 90%;
+		grid-template-columns: repeat(auto-fill, 340px);
+		margin-bottom: 56px;
+	}
+}
+@media (min-width: $desktop) {
+	.jobs-filter-wrapper {
+		width: min(90%, 1120px);
+		margin-bottom: 60px;
+	}
+	.jobs-grid {
+		width: min(90%, 1120px);
+		grid-template-columns: repeat(auto-fill, 350px);
+	}
+}

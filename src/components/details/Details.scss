@@ -1,0 +1,253 @@
+@use "../styles" as *;
+
+.details-container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.company-card,
+.details-card {
+	width: 87%;
+	border-radius: 6px;
+	background-color: $white;
+}
+.company-card-dark,
+.details-card-dark {
+	background-color: $very-dark-blue;
+}
+
+.details-card {
+	margin-top: 8px;
+	padding: 40px 24px;
+	.details-card-header-wrapper {
+		display: flex;
+		flex-direction: column;
+		.details-card-header {
+			margin-bottom: 50px;
+			h2 {
+				font-size: 20px;
+			}
+			.details-location {
+				font-size: 14px;
+			}
+		}
+	}
+	.details-card-description {
+		margin-top: 32px;
+		p {
+			line-height: 162%;
+		}
+	}
+	.details-card-requirements {
+		margin-top: 60px;
+		p {
+			margin-top: 28px;
+			line-height: 162%;
+		}
+		ul {
+			margin-top: 32px;
+			li {
+				display: flex;
+				gap: 32px;
+				line-height: 162%;
+				margin-bottom: 8px;
+			}
+		}
+	}
+	.details-card-roles {
+		margin-top: 32px;
+		p {
+			margin-top: 28px;
+			line-height: 162%;
+		}
+		ol {
+			margin-top: 32px;
+			li {
+				display: flex;
+				gap: 28px;
+				line-height: 162%;
+				margin-bottom: 8px;
+			}
+		}
+	}
+}
+.company-card {
+	transform: translateY(-15px);
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 200px;
+	h3 {
+		font-size: 20px;
+	}
+	.company-card-logo {
+		top: 0;
+		transform: translateY(-25px);
+
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 50px;
+		height: 50px;
+		border-radius: 15px;
+	}
+	.company-card-info {
+		text-align: center;
+		margin-bottom: 24px;
+		h3 {
+			margin-bottom: 5px;
+		}
+	}
+}
+
+.footer-container {
+	width: 100%;
+	height: 96px;
+	margin-top: 64px;
+	display: flex;
+	justify-content: center;
+	background-color: $white;
+}
+
+.footer-container-dark {
+	background-color: $very-dark-blue;
+}
+.details-footer {
+	width: 87%;
+	display: flex;
+	flex-direction: column;
+}
+
+// TEXT STYLES
+.gray-text {
+	color: $gray;
+}
+.dark-gray-text {
+	color: $dark-gray;
+}
+.decoration-dot {
+	margin-inline: 5px;
+	font-weight: 700;
+	color: $dark-gray;
+}
+.heading-text {
+	color: $blackish-gray;
+}
+.heading-text-dark {
+	color: $white;
+}
+.violet-text {
+	color: $violet;
+	font-weight: 700;
+}
+@media (max-width: $tablet) {
+	footer {
+		padding: 25px 0;
+	}
+	.details-footer-item {
+		display: none;
+	}
+}
+@media (min-width: $tablet) {
+	.company-card,
+	.details-card {
+		width: 90%;
+	}
+	.company-card {
+		padding-right: 40px;
+		transform: translateY(-40px);
+		position: static;
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: center;
+		height: 140px;
+		.company-card-logo {
+			transform: translateY(0px);
+			position: static;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 140px;
+			height: 140px;
+			border-radius: 6px 0 0 6px;
+			margin-right: 40px;
+			img {
+				transform: scale(2);
+			}
+		}
+		.company-card-info {
+			text-align: left;
+			margin-bottom: 0;
+			h3 {
+				margin-bottom: 5px;
+			}
+		}
+	}
+	.details-card {
+		padding: 48px;
+		margin-top: -13px;
+		.details-card-header-wrapper {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 40px;
+			.details-card-header {
+				display: flex;
+				flex-direction: column;
+				gap: 8px;
+				margin-bottom: 0px;
+			}
+		}
+		.details-card-description {
+			margin-top: 0;
+		}
+		.details-card-requirements {
+			margin-top: 40px;
+			ul {
+				margin-top: 24px;
+			}
+		}
+	}
+
+	.details-footer {
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		width: 90%;
+		h2 {
+			font-size: 20px;
+		}
+	}
+	.footer-container {
+		margin-top: 60px;
+	}
+}
+@media (min-width: $desktop) {
+	.company-card,
+	.details-card {
+		width: min(90%, 730px);
+	}
+	.details-card {
+		margin-top: -6px;
+		.details-card-roles {
+			margin-top: 40px;
+			ol {
+				margin-top: 32px;
+			}
+		}
+	}
+	.details-footer {
+		width: min(90%, 730px);
+	}
+
+	.footer-container {
+		margin-top: 80px;
+	}
+}

@@ -82,105 +82,138 @@ const Login = ({ isOpened, onClose }) => {
 				<div className="logo-container">
 					<img src={loginLogo} alt="devjobs logo" />
 				</div>
-				<h3
-					className={`login-heading ${isDarkMode ? "login-heading-dark" : ""}`}
-				>
-					{isSignUp ? "Sign up" : "Login"}
-				</h3>
-				{isSignUp ? (
-					<form
-						onSubmit={handleSignUp(signUp)}
-						className="login-sign-up-form"
-						id="sign-up-form"
+				<div>
+					<h3
+						className={`login-heading ${
+							isDarkMode ? "login-heading-dark" : ""
+						}`}
 					>
-						<div className="login-wrapper">
-							<label className="login-label" htmlFor="email-sign-up">
-								Email
-							</label>
-							<div className="login-input-container">
-								<img alt="" aria-hidden="true" src={emailIcon} />
-								<input
-									className="login-input"
-									id="email-sign-up"
-									{...signUpRegister("emailSignUp")}
-								/>
+						{isSignUp ? "Sign up" : "Login"}
+					</h3>
+					{isSignUp ? (
+						<form
+							onSubmit={handleSignUp(signUp)}
+							className="login-sign-up-form"
+							id="sign-up-form"
+						>
+							<div className="login-wrapper">
+								<label className="login-label" htmlFor="email-sign-up">
+									Email
+								</label>
+								<div className="login-input-container">
+									<img alt="" aria-hidden="true" src={emailIcon} />
+									<input
+										className="login-input"
+										id="email-sign-up"
+										{...signUpRegister("emailSignUp", { required: true })}
+									/>
+								</div>
+								{signUpErrors.emailSignUp && (
+									<span className="error-message">This field is required</span>
+								)}
 							</div>
-						</div>
-						<div className="login-wrapper">
-							<label className="login-label" htmlFor="password-sign-up">
-								Password
-							</label>
-							<div className="login-input-container">
-								<img alt="" aria-hidden="true" src={lockIcon} />
-								<input
-									className="login-input"
-									id="password-sign-up"
-									{...signUpRegister("passwordSignUp")}
-								/>
+							<div className="login-wrapper">
+								<label className="login-label" htmlFor="password-sign-up">
+									Password
+								</label>
+								<div className="login-input-container">
+									<img alt="" aria-hidden="true" src={lockIcon} />
+									<input
+										className="login-input"
+										id="password-sign-up"
+										{...signUpRegister("passwordSignUp", {
+											required: true,
+											minLength: 8,
+										})}
+									/>
+								</div>
+								{signUpErrors.passwordSignUp?.type === "required" && (
+									<span className="error-message">This field is required</span>
+								)}
+								{signUpErrors.passwordSignUp?.type === "minLength" && (
+									<span className="error-message">
+										Password needs to be at least 8 characters
+									</span>
+								)}
 							</div>
-						</div>
-						<ButtonLogin type="submit">Sign Up</ButtonLogin>
-					</form>
-				) : (
-					<form
-						onSubmit={handleLogin(login)}
-						className="login-sign-up-form"
-						id="login-form"
-					>
-						<div className="login-wrapper">
-							<label className="login-label" htmlFor="email-login">
-								Email
-							</label>
-							<div className="login-input-container">
-								<img alt="" aria-hidden="true" src={emailIcon} />
-								<input
-									className="login-input"
-									id="email-login"
-									{...loginRegister("emailLogin")}
-								/>
+							<ButtonLogin type="submit">Sign Up</ButtonLogin>
+						</form>
+					) : (
+						<form
+							onSubmit={handleLogin(login)}
+							className="login-sign-up-form"
+							id="login-form"
+						>
+							<div className="login-wrapper">
+								<label className="login-label" htmlFor="email-login">
+									Email
+								</label>
+								<div className="login-input-container">
+									<img alt="" aria-hidden="true" src={emailIcon} />
+									<input
+										className="login-input"
+										id="email-login"
+										{...loginRegister("emailLogin", { required: true })}
+									/>
+								</div>
+								{loginErrors.emailLogin && (
+									<span className="error-message">This field is required</span>
+								)}
 							</div>
-						</div>
-						<div className="login-wrapper">
-							<label className="login-label" htmlFor="password-login">
-								Password
-							</label>
-							<div className="login-input-container">
-								<img alt="" aria-hidden="true" src={lockIcon} />
-								<input
-									className="login-input"
-									id="password-login"
-									{...loginRegister("passwordLogin")}
-								/>
+							<div className="login-wrapper">
+								<label className="login-label" htmlFor="password-login">
+									Password
+								</label>
+								<div className="login-input-container">
+									<img alt="" aria-hidden="true" src={lockIcon} />
+									<input
+										className="login-input"
+										id="password-login"
+										{...loginRegister("passwordLogin", {
+											required: true,
+											minLength: 8,
+										})}
+									/>
+								</div>
+								{loginErrors.passwordLogin?.type === "required" && (
+									<span className="error-message">This field is required</span>
+								)}
+								{loginErrors.passwordLogin?.type === "minLength" && (
+									<span className="error-message">
+										Password needs to be at least 8 characters
+									</span>
+								)}
 							</div>
-						</div>
-						<ButtonLogin type="submit">Login</ButtonLogin>
-					</form>
-				)}
-				<div className="google-login" onClick={googleLogin}>
-					<div>
-						<img alt="" src={googleIcon} />
-						<span>Sign up with google</span>
-					</div>
+							<ButtonLogin type="submit">Login</ButtonLogin>
+						</form>
+					)}
 				</div>
-				{isSignUp ? (
-					<div className="login-signup-switch">
-						<p>
-							Already have an account?
-							<span onClick={() => setIsSignUp(false)}>Login instead</span>
-						</p>
+				<div>
+					<div className="google-login" onClick={googleLogin}>
+						<div>
+							<img alt="" src={googleIcon} />
+							<span>Sign up with google</span>
+						</div>
 					</div>
-				) : (
-					<div className="login-signup-switch">
-						<p>
-							Don't have an account?
-							<span onClick={() => setIsSignUp(true)}>Sign up instead</span>
-						</p>
-					</div>
-				)}
+					{isSignUp ? (
+						<div className="login-signup-switch">
+							<p>
+								Already have an account?
+								<span onClick={() => setIsSignUp(false)}>Login instead</span>
+							</p>
+						</div>
+					) : (
+						<div className="login-signup-switch">
+							<p>
+								Don't have an account?
+								<span onClick={() => setIsSignUp(true)}>Sign up instead</span>
+							</p>
+						</div>
+					)}
+				</div>
 			</div>
 		</>,
 		document.getElementById("portal")
 	)
 }
-// if sign in successful, close the form
 export default Login

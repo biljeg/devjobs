@@ -1,13 +1,19 @@
 @use "../../components/styles" as *;
 
 .home {
+	margin: 0 auto;
+	width: 87%;
 }
 
-.home-heading,
-.home-text {
+@media (min-width: $tablet) {
+	.home {
+		width: 90%;
+	}
+}
+
+.text {
 	color: $blackish-gray;
 }
-.home-heading-dark,
-.home-text-dark {
-	color: $light-gray;
+.text-dark {
+	color: $white;
 }

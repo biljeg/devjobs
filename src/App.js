@@ -6,7 +6,6 @@ import Header from "./components/header/Header.component"
 import NotFound from "./components/notfound/NotFound.component"
 import Details from "./components/details/Details.component"
 import "./App.scss"
-//make the default value according to prefers-dark-mode ?
 
 export const ThemeContext = createContext({
 	isDarkMode: false,

@@ -2,7 +2,8 @@ import "./Job.scss"
 import { getAuth, onAuthStateChanged, signOut } from "../../firebase"
 import { useNavigate } from "react-router-dom"
 import Login from "../login/Login.component"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import { ThemeContext } from "../../App"
 const auth = getAuth()
 
 const Job = ({
@@ -30,6 +31,7 @@ const Job = ({
 	const closeLogin = () => {
 		setLoginOpened(false)
 	}
+	const { isDarkMode } = useContext(ThemeContext)
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, user => setUserObj(user))
 		return unsubscribe
@@ -38,20 +40,39 @@ const Job = ({
 	return (
 		<>
 			<Login isOpened={loginOpened} onClose={closeLogin} />
-			<div className="job-wrapper">
+			<div className={`job-wrapper ${isDarkMode ? "job-wrapper-dark" : ""}`}>
 				<div className="job-logo" style={bg}>
 					<img src={`${logo.url}`} alt={`${company} logo`} />
 				</div>
-				<span>{postedAt}</span>
-				<span>{contract}</span>
+				<div className="job-info-wrapper">
+					<div>
+						<span className="dark-gray-text">{postedAt}</span>
+						<span className="decoration-dot ">•</span>
+						<span className="dark-gray-text">{contract}</span>
+					</div>
 
-				{userObj ? (
-					<h3 onClick={() => redirectToDetails(id)}>{position}</h3>
-				) : (
-					<h3 onClick={redirectToSignIn}>{position}</h3>
-				)}
-				<span>{company}</span>
-				<span>{location}</span>
+					{userObj ? (
+						<h3
+							onClick={() => redirectToDetails(id)}
+							className={`job-header ${
+								isDarkMode ? "heading-text-dark" : "heading-text"
+							}`}
+						>
+							{position}
+						</h3>
+					) : (
+						<h3
+							onClick={redirectToSignIn}
+							className={`job-header ${
+								isDarkMode ? "heading-text-dark" : "heading-text"
+							}`}
+						>
+							{position}
+						</h3>
+					)}
+					<span className="dark-gray-text">{company}</span>
+				</div>
+				<span className="violet-text-jobs">{location}</span>
 			</div>
 		</>
 	)

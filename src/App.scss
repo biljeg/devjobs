@@ -61,6 +61,12 @@ a {
 	text-decoration: inherit; /* no underline */
 }
 
+ul,
+ol {
+	list-style: none;
+	padding: 0;
+}
+
 /* Accessability */
 @media (prefers-reduced-motion: reduce) {
 	html:focus-within {
