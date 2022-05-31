@@ -20,11 +20,13 @@ const Filter = ({ resetForm, onSubmit }) => {
 	})
 	const { isDarkMode } = useContext(ThemeContext)
 	const [filterOpened, setFilterOpened] = useState(false)
-	const [isChecked, setIsChecked] = useState(true)
+	const [isChecked, setIsChecked] = useState(false)
 	const [desktopFilter, setDesktopFilter] = useState(
 		window.matchMedia("(min-width: 600px)").matches
 	)
-
+	const checkboxClick = e => {
+		setIsChecked(e.target.checked)
+	}
 	const closeFilter = () => {
 		setFilterOpened(false)
 	}
@@ -69,28 +71,50 @@ const Filter = ({ resetForm, onSubmit }) => {
 				)}
 				{desktopFilter && (
 					<div className="form-group">
-						<div
-							className={`custom-checkbox-container ${
-								isDarkMode ? "custom-checkbox-container-dark" : ""
+						<label
+							className={`fulltime-desktop-label ${
+								isDarkMode ? "fulltime-desktop-label-dark" : ""
 							}`}
+							htmlFor="fullTime-desktop"
 						>
 							<div
-								className={`custom-checkbox ${
-									isChecked ? "custom-checkbox-checked" : ""
+								className={`custom-checkbox-container ${
+									isDarkMode ? "custom-checkbox-container-dark" : ""
 								}`}
 							>
-								{isChecked && <img src={checkIcon} />}
+								<div
+									className={`custom-checkbox ${
+										isChecked ? "custom-checkbox-checked" : ""
+									}`}
+								>
+									{isChecked && (
+										<svg
+											width={15}
+											height={12}
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="m1 6.57 3.572 3.572L13.714 1"
+												stroke="#FFF"
+												strokeWidth={2}
+												fill="none"
+											/>
+										</svg>
+									)}
+								</div>
+								<input
+									className="visually-hidden"
+									type="checkbox"
+									checked={isChecked}
+									onClick={checkboxClick}
+									id="fullTime-desktop"
+									{...register("fullTimeDesktop")}
+								/>
 							</div>
-							<input
-								className="visually-hidden"
-								type="checkbox"
-								id="fullTime-desktop"
-								{...register("fullTimeDesktop")}
-							/>
-							<label htmlFor="fullTime-desktop">
+							<span>
 								Full Time <span className="full-time-only">Only</span>
-							</label>
-						</div>
+							</span>
+						</label>
 					</div>
 				)}
 				<MobileFilter
